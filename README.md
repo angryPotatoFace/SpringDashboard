@@ -49,6 +49,18 @@ Preview:
 npm run preview
 ```
 
+## Deploy en GitHub Pages
+
+- El repo detectado para `GitHub Pages` es `SpringDashboard`.
+- El build de `Vite` usa `base = "/SpringDashboard/"` al compilar para que los assets resuelvan bien en Pages.
+- El deploy automatico queda configurado en [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) y publica la carpeta `dist`.
+
+Para habilitarlo en GitHub:
+
+1. Ir a `Settings > Pages`.
+2. En `Build and deployment`, elegir `GitHub Actions`.
+3. Hacer push a `main` o ejecutar el workflow manualmente.
+
 ## Estructura general
 
 ```text
