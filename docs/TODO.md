@@ -5,6 +5,7 @@
 - Agregar tests automaticos para:
   - parser de Jira
   - conversion de duraciones
+  - `sanitizeEstimateValues`
   - `buildIssueWithRecalculation`
   - `computeSprintMetrics`
 - Confirmar la unidad real del seed de reuniones (`hours`).
@@ -19,6 +20,7 @@
   - encabezados incompletos
 - Revisar si el campo legacy `desired` puede eliminarse sin romper persistencia previa.
 - Confirmar si la exportacion final debe incluir backlog completo o solo items incluidos.
+- Agregar una vista o indicador mas explicito para items `Reasignar` dentro de `Reparto`.
 
 ## Prioridad baja
 

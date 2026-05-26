@@ -8,6 +8,7 @@
   - `Reparto`: asignacion final.
 - No usar `finalDeveloper` como condicion para que un item cuente en el sprint total.
 - No eliminar campos o flujos existentes sin revisar persistencia y exportacion.
+- Si cambia el comportamiento real, actualizar documentacion en el mismo cambio.
 
 ## Reglas de TypeScript
 
@@ -50,3 +51,4 @@
 
 - Verificar que `localStorage` siga restaurando el estado.
 - Verificar que `XLSX` siga reflejando incluidos, pendientes y asignaciones finales.
+- Verificar que `README.md`, `docs/CHANGELOG.md` y los docs funcionales sigan consistentes con el codigo.

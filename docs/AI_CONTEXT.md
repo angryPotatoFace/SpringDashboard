@@ -42,6 +42,7 @@ La aplicacion tiene dos momentos funcionales distintos:
 1. Leer [src/App.tsx](../src/App.tsx), en especial:
 - `parseIssues`, `parseLine`, `buildHeaderMap`
 - `buildIssueWithRecalculation`
+- `sanitizeEstimateValues`
 - `computeSprintMetrics`
 - `exportToXlsx`
 
@@ -56,8 +57,15 @@ La aplicacion tiene dos momentos funcionales distintos:
 - reuniones
 - persistencia
 - exportacion
+- unidad visible de estimacion
+- `includedInSprint`
 
 4. Si el cambio esperado no coincide con el codigo actual, registrarlo en [docs/TODO.md](TODO.md).
+
+5. Si el cambio modifica comportamiento real, actualizar en el mismo commit:
+- [docs/CHANGELOG.md](CHANGELOG.md)
+- [docs/FUNCTIONAL_REQUIREMENTS.md](FUNCTIONAL_REQUIREMENTS.md) si cambia alcance implementado
+- [README.md](../README.md) si cambia instalacion, build o deploy
 
 ## Archivos mas sensibles
 

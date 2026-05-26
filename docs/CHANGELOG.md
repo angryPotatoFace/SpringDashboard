@@ -1,5 +1,33 @@
 # Changelog
 
+## 2026-05-26
+
+### Recuperacion de funcionalidades documentadas
+
+- Se restauro `includedInSprint` como fuente de verdad funcional para decidir si un item suma al sprint.
+- Se recupero la columna unica de `Estimacion` con unidad visible (`pts`, `h`, `dias`) y recalculo centralizado.
+- Se restauro `computeSprintMetrics` como fuente unica de calculo para incluidos, pendientes, reuniones, capacidad y ocupacion.
+- La tab `Reparto` volvio a trabajar solo sobre items incluidos.
+- Se agrego estado visible de asignacion para distinguir `Pendiente`, `Reasignar`, `Perfil no dev`, `Deshabilitado` y `Asignado`.
+
+### Persistencia y experiencia
+
+- La persistencia local vuelve a guardar el workspace completo:
+  - backlog
+  - texto importado
+  - filtros
+  - asignaciones
+  - personas
+  - reuniones
+  - configuracion del sprint
+- Los avisos superiores de `Backlog`, `Reparto` y `Reuniones` ahora pueden cerrarse y quedan recordados en `localStorage`.
+- El alta manual del backlog vuelve a agregarse al final y hace scroll hacia la nueva fila.
+
+### Exportacion y mantenimiento
+
+- La exportacion `XLSX` ahora refleja inclusion, unidad visible, pendientes de reparto y ocupacion visible/real.
+- Se dejo la documentacion sincronizada con esta version para reducir regresiones por cambios futuros.
+
 ## 2026-05-12
 
 ### Documentacion

@@ -31,7 +31,6 @@ Responsabilidad:
 ### Recalculo por item
 
 - `buildIssueWithRecalculation`
-- `getEstimateMode`
 - `sanitizeEstimateValues`
 - `updateIssueEstimate`
 - `updateIssueType`
@@ -67,6 +66,7 @@ Responsabilidad:
 - para correctivos, permitir `h` o `dias`
 - no renderizar leyendas explicativas por fila debajo del input
 - mostrar avisos superiores cerrables
+- persistir filtros y texto importado en `localStorage`
 
 No deberia:
 - convertirse en una segunda pantalla de reparto
@@ -78,6 +78,7 @@ Responsabilidad:
 - editar `finalDeveloper`
 - dejar visible `jiraAssignee`
 - mostrar si un item esta pendiente o necesita reasignacion
+- no mezclar items excluidos del sprint
 
 No deberia:
 - duplicar resumen, prioridad, estado o estimacion del backlog

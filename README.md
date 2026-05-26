@@ -82,7 +82,19 @@ docs/
 
 ## Notas importantes
 
-- La fuente principal de verdad funcional hoy sigue en [src/App.tsx](src/App.tsx).
+- La fuente principal de verdad funcional debe mantenerse sincronizada entre:
+  - [src/App.tsx](src/App.tsx)
+  - [docs/AI_CONTEXT.md](docs/AI_CONTEXT.md)
+  - [docs/SPRINT_RULES.md](docs/SPRINT_RULES.md)
+  - [docs/DATA_MODEL.md](docs/DATA_MODEL.md)
 - La capacidad general del sprint toma todos los items con `includedInSprint = true`, aunque no tengan asignacion final.
 - La carga individual solo toma items incluidos con una asignacion efectiva a una persona disponible para el sprint.
-- Antes de tocar logica de capacidad o reuniones conviene leer `docs/AI_CONTEXT.md`, `docs/SPRINT_RULES.md` y `docs/DATA_MODEL.md`.
+- La persistencia local vuelve a guardar el workspace completo:
+  - backlog
+  - texto importado
+  - filtros
+  - asignaciones
+  - personas
+  - reuniones
+  - configuracion del sprint
+- Antes de tocar logica de capacidad o reuniones conviene leer `docs/AI_CONTEXT.md`, `docs/SPRINT_RULES.md`, `docs/DATA_MODEL.md` y revisar `computeSprintMetrics`.
