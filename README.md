@@ -1,4 +1,4 @@
-# Sprint Planner / Planificador de Sprint
+# Sprint Planner / Planificador de Sprint 
 
 Aplicacion web para planificar un sprint a partir de un backlog cargado desde Jira o creado manualmente. Permite estimar esfuerzo, calcular capacidad del equipo, descontar reuniones, contemplar ausencias y repartir trabajo antes de exportar la planificacion.
 
