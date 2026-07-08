@@ -375,7 +375,7 @@ export default function SprintDashboardPrototype() {
       { metric: "Carga total", value: Number(totals.totalLoadDays.toFixed(2)) }, { metric: "Ocupacion %", value: Number(capacity.totalOccupationPercent.toFixed(1)) },
       { metric: "Desbalance", value: Number(capacity.balanceSpread.toFixed(2)) },
     ];
-    const backlogRows = issues.map((issue) => ({
+    const backlogRows = issues.filter((issue) => issue.includedInSprint).map((issue) => ({
       Tipo: issue.type, Key: issue.key, JiraUrl: getJiraIssueUrl(issue.key), Resumen: issue.summary, Estado: issue.status, Prioridad: issue.priority,
       IncluidoSprint: issue.includedInSprint ? "Si" : "No", Estimacion: issue.estimateRaw, Unidad: getEstimateUnitLabel(issue.estimateUnit),
       StoryPoints: issue.storyPoints, Horas: issue.hours, DiasManual: issue.manualDays, DiasEquivalentes: Number(issue.equivalentDays.toFixed(2)),
