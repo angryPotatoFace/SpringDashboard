@@ -101,10 +101,12 @@ export default function SprintDashboardPrototype() {
     const row = document.querySelector<HTMLElement>(`[data-issue-id="${lastAddedIssueId}"]`);
     if (row) {
       row.scrollIntoView({ behavior: "smooth", block: "center" });
-      const input = row.querySelector("input");
-      input?.focus();
+      // Focus the first text input (skip the checkbox)
+      const textInput = row.querySelector<HTMLInputElement>("input[type='text'], input[type='number'], input:not([type='checkbox'])");
+      textInput?.focus();
     }
-  }, [lastAddedIssueId, issues]);
+    setLastAddedIssueId(null);
+  }, [lastAddedIssueId]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -177,6 +179,10 @@ export default function SprintDashboardPrototype() {
     : 0;
   const sprintLoadClass = kpiColor(sprintLoadPercent);
 
+  // Remaining capacity in days and story points
+  const remainingDays = Math.max(0, capacity.totalAvailableDays - totals.totalEquivalentDays);
+  const remainingPoints = daysPerStoryPoint > 0 ? Math.floor(remainingDays / daysPerStoryPoint) : 0;
+
   // Smart alerts
   const sprintAlerts = useMemo(() => {
     const includedIssues2 = issues.filter((i) => i.includedInSprint);
@@ -227,7 +233,7 @@ export default function SprintDashboardPrototype() {
 
   const updateIssue = (id: string, patch: Partial<Issue>) => {
     setIssues((current) =>
-      current.map((issue, index) => (issue.id === id ? buildIssueWithRecalculation(issue, daysPerStoryPoint, hoursPerDay, { ...patch, id: issue.id }) : normalizeIssue(issue, index, daysPerStoryPoint, hoursPerDay)))
+      current.map((issue) => (issue.id === id ? buildIssueWithRecalculation(issue, daysPerStoryPoint, hoursPerDay, { ...patch, id: issue.id }) : issue))
     );
   };
 
@@ -452,6 +458,7 @@ export default function SprintDashboardPrototype() {
           <KpiCard title="Dias equivalentes" value={totals.totalEquivalentDays.toFixed(2)} icon={<Gauge className="h-4 w-4" />} />
           <KpiCard title="Capacidad neta" value={capacity.totalAvailableDays.toFixed(2)} icon={<Users className="h-4 w-4" />} />
           <KpiCard title="Carga sprint" value={`${sprintLoadPercent.toFixed(1)}%`} valueClassName={sprintLoadClass} icon={<Gauge className="h-4 w-4" />} />
+          <KpiCard title="Margen disponible" value={`${remainingPoints} pts (${remainingDays.toFixed(1)}d)`} valueClassName={remainingDays > 0 ? "text-emerald-600" : "text-red-600"} icon={<Gauge className="h-4 w-4" />} />
           <KpiCard title="Pendientes reparto" value={totals.pendingAssignmentCount} icon={<ClipboardList className="h-4 w-4" />} />
           <KpiCard title="Dias pendientes" value={totals.pendingAssignmentDays.toFixed(2)} icon={<Gauge className="h-4 w-4" />} />
           <KpiCard title="Evolutivos" value={totals.evolutives} icon={<ClipboardList className="h-4 w-4" />} />

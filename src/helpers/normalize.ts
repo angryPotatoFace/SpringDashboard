@@ -5,8 +5,6 @@ import {
   calculateEquivalentDays,
   sanitizeEstimateUnit,
   sanitizeEstimateValues,
-  usesHours,
-  usesStoryPoints,
 } from "./estimates";
 import { clampPercentage } from "./utils";
 
@@ -50,8 +48,8 @@ export function inferEstimateStateFromIssue(source: Partial<Issue>) {
   const hours = Math.max(0, Number(source.hours ?? 0) || 0);
 
   if (manualDays > 0) return { estimateUnit: "d" as EstimateUnit, estimateRaw: manualDays };
-  if (usesStoryPoints(type) && storyPoints > 0) return { estimateUnit: "pts" as EstimateUnit, estimateRaw: storyPoints };
-  if (usesHours(type) && hours > 0) return { estimateUnit: "h" as EstimateUnit, estimateRaw: hours };
+  if (storyPoints > 0) return { estimateUnit: "pts" as EstimateUnit, estimateRaw: storyPoints };
+  if (hours > 0) return { estimateUnit: "h" as EstimateUnit, estimateRaw: hours };
 
   const raw = Math.max(0, Number(source.estimateRaw ?? 0) || 0);
   return { estimateUnit: sanitizeEstimateUnit(type, source.estimateUnit), estimateRaw: raw };

@@ -13,7 +13,7 @@ export function getDefaultEstimateUnit(type: IssueType): EstimateUnit {
 }
 
 export function getAllowedEstimateUnits(type: IssueType): EstimateUnit[] {
-  return usesStoryPoints(type) ? ["pts", "d"] : ["h", "d"];
+  return usesStoryPoints(type) ? ["pts", "h", "d"] : ["h", "d"];
 }
 
 export function sanitizeEstimateUnit(type: IssueType, value?: string | null): EstimateUnit {
@@ -31,7 +31,7 @@ export function sanitizeEstimateValues(type: IssueType, estimateUnit: EstimateUn
   if (unit === "pts") {
     return { estimateUnit: unit, estimateRaw: raw, storyPoints: usesStoryPoints(type) ? raw : 0, hours: 0, manualDays: 0 };
   }
-  return { estimateUnit: unit, estimateRaw: raw, storyPoints: 0, hours: usesHours(type) ? raw : 0, manualDays: 0 };
+  return { estimateUnit: unit, estimateRaw: raw, storyPoints: 0, hours: raw, manualDays: 0 };
 }
 
 export function calculateEquivalentDays(storyPoints: number, hours: number, manualDays: number, daysPerStoryPoint: number, hoursPerDay: number) {

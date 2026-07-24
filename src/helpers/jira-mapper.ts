@@ -8,20 +8,39 @@ import { normalizeIssue } from "./normalize";
 import { normalizeType } from "./utils";
 
 function extractStoryPoints(fields: JiraIssueRaw["fields"]): number {
+  // Fields from Jira agile API can come as raw numbers or as { value: number } objects
+  const extract = (val: unknown): number => {
+    if (typeof val === "number" && val > 0) return val;
+    if (val && typeof val === "object" && "value" in val) {
+      const inner = (val as { value: unknown }).value;
+      if (typeof inner === "number" && inner > 0) return inner;
+    }
+    return 0;
+  };
+
   // Try story point fields in order of priority for tecocloud
-  if (typeof fields.customfield_10200 === "number" && fields.customfield_10200 > 0) return fields.customfield_10200;
-  if (typeof fields.story_points === "number" && fields.story_points > 0) return fields.story_points;
-  if (typeof fields.customfield_10016 === "number" && fields.customfield_10016 > 0) return fields.customfield_10016;
-  if (typeof fields.customfield_10028 === "number" && fields.customfield_10028 > 0) return fields.customfield_10028;
+  const fromCustom10200 = extract(fields.customfield_10200);
+  if (fromCustom10200 > 0) return fromCustom10200;
+  const fromStoryPoints = extract(fields.story_points);
+  if (fromStoryPoints > 0) return fromStoryPoints;
+  const fromCustom10016 = extract(fields.customfield_10016);
+  if (fromCustom10016 > 0) return fromCustom10016;
+  const fromCustom10028 = extract(fields.customfield_10028);
+  if (fromCustom10028 > 0) return fromCustom10028;
   return 0;
 }
 
 function extractHoursFromOriginalEstimate(fields: JiraIssueRaw["fields"]): number {
-  // timeoriginalestimate is in seconds
-  if (typeof fields.timeoriginalestimate === "number" && fields.timeoriginalestimate > 0) {
-    return fields.timeoriginalestimate / 3600;
+  // timeoriginalestimate is in seconds, can come as number or { value: number }
+  let seconds = 0;
+  const val = fields.timeoriginalestimate;
+  if (typeof val === "number" && val > 0) {
+    seconds = val;
+  } else if (val && typeof val === "object" && "value" in val) {
+    const inner = (val as { value: unknown }).value;
+    if (typeof inner === "number" && inner > 0) seconds = inner;
   }
-  return 0;
+  return seconds > 0 ? seconds / 3600 : 0;
 }
 
 function formatDate(isoString?: string): string {
